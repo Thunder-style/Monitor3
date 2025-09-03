@@ -1,15 +1,18 @@
 
+import React, { useState } from 'react';
+import DashboardLayout from '@/components/ui/dashboard-layout';
+import GlowCard from '@/components/ui/glow-card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { CardContent, CardHeader, Card, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHeader, TableRow, TableHead } from '@/components/ui/table';
 import { SelectItem, Select, SelectContent, SelectValue, SelectTrigger } from '@/components/ui/select';
 import { Brain, UserPlus, TrendingUp, GraduationCap, BookOpen, Calendar, Users, FileText, Clock, AlertTriangle } from 'lucide-react';
-import React, { useState } from 'react';
 import { Legend, Bar, PieChart, Sector, Tooltip, BarChart, CartesianGrid, ResponsiveContainer, Pie, Cell, XAxis, YAxis } from 'recharts';
 import { DialogContent, DialogTitle, Dialog, DialogHeader, DialogTrigger } from '@/components/ui/dialog';
-import { Progress } from '@/components/ui/progress';
+import { CustomProgress } from '@/components/ui/custom-progress';
 import { Button } from '@/components/ui/button';
+
 const Index = () => {
   // 核心数据总览
   const coreData = {
@@ -185,16 +188,65 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-10 text-center relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-indigo-600/5 rounded-3xl -z-10"></div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-800 via-blue-800 to-indigo-800 bg-clip-text text-transparent mb-3">
-            干部培养驾驶舱
-          </h1>
-          <p className="text-slate-600 text-lg font-medium">全面监控和分析干部培养情况·智慧决策·精准管理</p>
-          <div className="mt-4 w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full"></div>
+    <DashboardLayout title="干部培养数据详情" showNav={true}>
+      <div className="space-y-6">
+        {/* 核心数据总览 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <GlowCard className="text-center">
+            <div className="flex items-center justify-center space-x-4">
+              <div className="p-3 rounded-full bg-gradient-to-r from-blue-500/20 to-indigo-500/20">
+                <Calendar className="h-8 w-8 text-blue-400" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold gradient-text">{coreData.annualProjects.completed}</h3>
+                <p className="text-cyan-100/80">已完成项目</p>
+                <p className="text-xs data-highlight">/ {coreData.annualProjects.planned} 总计划</p>
+              </div>
+            </div>
+          </GlowCard>
+
+          <GlowCard className="text-center">
+            <div className="flex items-center justify-center space-x-4">
+              <div className="p-3 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-500/20">
+                <Users className="h-8 w-8 text-green-400" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold gradient-text">{coreData.totalParticipants}</h3>
+                <p className="text-cyan-100/80">总参与人数</p>
+                <p className="text-xs data-highlight">活跃培训中</p>
+              </div>
+            </div>
+          </GlowCard>
+
+          <GlowCard className="text-center">
+            <div className="flex items-center justify-center space-x-4">
+              <div className="p-3 rounded-full bg-gradient-to-r from-purple-500/20 to-violet-500/20">
+                <TrendingUp className="h-8 w-8 text-purple-400" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold gradient-text">{coreData.overallProgress}%</h3>
+                <p className="text-cyan-100/80">整体进度</p>
+                <p className="text-xs data-highlight">超预期完成</p>
+              </div>
+            </div>
+          </GlowCard>
+
+          <GlowCard className="text-center">
+            <div className="flex items-center justify-center space-x-4">
+              <div className="p-3 rounded-full bg-gradient-to-r from-red-500/20 to-pink-500/20">
+                <AlertTriangle className="h-8 w-8 text-red-400" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold gradient-text">{coreData.warningCount}</h3>
+                <p className="text-cyan-100/80">预警人数</p>
+                <p className="text-xs data-highlight">需关注</p>
+              </div>
+            </div>
+          </GlowCard>
         </div>
+
+        {/* 剩余的内容将在下一步继续 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
 
         {/* 核心数据总览 */}
         <Card className="mb-8 bg-white/70 backdrop-blur-sm shadow-xl border-0 ring-1 ring-slate-200/50">
@@ -732,7 +784,8 @@ const Index = () => {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 };
 
